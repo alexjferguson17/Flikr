@@ -12,31 +12,21 @@ angular.module('flikrSearch', [])
 		    api_key: 'bd518b863a8442c4402d347709286671',
 		    tags: $scope.userSearch,
 		    format: 'json',
-		    nojsoncallback: 1
+		    nojsoncallback: 1,
+		    per_page: '20'
 		  }
 		};
 		
-		$http(config).then(function(response){
-			$scope.image = response.data.photos.photo;
-		});
-
-		$http({
-			method: 'GET',
-			url: 'https://farm{farm}.staticflickr.com/{server}/{id}_{secret}.jpg',
-			params: {
-			    method: 'flickr.photos.search',
-			    api_key: 'bd518b863a8442c4402d347709286671',
-			    tags: $scope.userSearch,
-			    format: 'json',
-			    nojsoncallback: 1
-			}
-		}).sucess(function(response) {
-			$scope.results = response;
-		}).error(function(error) {
-			alert('error');
-		});
-
-
+    	$http(config)
+       .then(
+           // success
+           function(response){
+               $scope.image = response.data.photos.photo;
+           },
+           //error
+           function (response) {
+               console.log(response);
+           });
 
 	};
 
